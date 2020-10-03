@@ -1,70 +1,60 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 /*
-* Swap fucntion
-* Swap two varibale values using temp veriable
+* Function to Print the sorted and unsorted Vector elements
 */
-void swapElement(int *m, int *n)  
+void printVector(const vector<int>& VectorElement)  
 {  
-    int temp = *m;  
-    *m = *n;  
-    *n = temp;  
-}  
-  
-/*
-* Main Logic for selection sorting
-*/
-void selectionSort(int arr[], int n)  
-{  
-    int i, j, min;  
-  
-    // Loop unsorted Array values 
-    for (i = 0; i < n-1; i++)  
-    {  
-        // Find the lowest value  
-        min = i;  
-        for (j = i+1; j < n; j++)  
-        if (arr[j] < arr[min])  
-            min = j;  // assign smallest index to minValIndex variable
-  
-        // Swap the minimum value element with the first available value at array index  
-        swapElement(&arr[min], &arr[i]);  
-    }  
-}  
+    for (int i=0; i < VectorElement.size(); i++)
+        cout << VectorElement[i] << " ";
+} 
 
 /*
-* Function to Print the sorted array
+* Selection sorting
 */
-void printArray(int arr[], int size)  
+void selectionSort(vector<int>& VectorElement)  
 {  
-    int i;  
-    for (i=0; i < size; i++)  
-        cout << arr[i] << " ";  
-    cout << endl;  
-}  
+    int size = VectorElement.size();
+    for (int i=0; i < size; i++){
+        int min = i;
+        for (int j = i+1; j < size; ++j) {
+            if (VectorElement.at(min) > VectorElement.at(j)) {
+                min = j;
+            }
+        }  
+        if (min != i)
+            swap(VectorElement.at(i), VectorElement.at(min));
+    }
+}
   
 /*
 * Main Function
-* select array size
-* select dynamic array elements
+* Allow to select array size
+* Allow to select dynamic array elements
 */
 
 int main()
 {
-    int size;
+    int size, input;
     cout << "\nEnter the size of Unsorted Array : ";
     cin >> size;
-    int Array[size];
     cout << "\nEnter any " << size << " Elements for Unsorted Array: \n";
+    vector<int> VectorElement;
 
-    // Input
+    // Input Elements
     for (int i = 0; i < size; i++) {
-        cin >> Array[i];
-    }  
-    selectionSort(Array, size);  
-    cout << "Sorted array: \n";  
-    printArray(Array, size);  
+        cin >> input;
+        VectorElement.push_back(input);
+    }
+    cout << "UnSorted Elements: \n"; 
+    printVector(VectorElement);
+    
+    selectionSort(VectorElement);  
+    
+    cout << "\nSorted Elements: \n";  
+    printVector(VectorElement);  
     return 0;  
 }
